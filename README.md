@@ -1,2 +1,4 @@
 # SchoolProject-DataTransferProtocols
-On the physical remote control on which the buttons are located, commands will be transmitted to the minecraft server, on which actions will take place depending on the actions of the user of the remote control
+
+С физического пульта дистанционного управления, будут передаваться команды на сервер minecraft, на котором будут
+происходить действия в зависимости от действий пользователя пульта дистанционного управления.
