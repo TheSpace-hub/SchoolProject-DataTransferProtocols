@@ -4,3 +4,4 @@ main: solutions.brilliant.schoolProjectDataTransferProtocols.SchoolProjectDataTr
 api-version: '1.18'
 authors: [ Sergey ]
 description: On the physical remote control on which the buttons are located, commands will be transmitted to the minecraft server, on which actions will take place depending on the actions of the user of the remote control
+website: https://github.com/TheSpace-hub/SchoolProject-DataTransferProtocols
