@@ -6,7 +6,7 @@ public final class SchoolProjectDataTransferProtocols extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        this.saveDefaultConfig();
 
     }
 
