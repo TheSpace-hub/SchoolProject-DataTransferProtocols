@@ -1,13 +1,14 @@
 package solutions.brilliant.schoolProjectDataTransferProtocols.connector;
 
+import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
+import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataIn;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 
 public class Connector {
 
@@ -43,6 +44,10 @@ public class Connector {
         Bukkit.getLogger().log(Level.FINEST, "Соединение успешно установленно");
     }
 
+    public DataIn getData() {
+        return new GsonBuilder().create().fromJson(getReaderData(), DataIn.class);
+    }
+
     private @Nullable ServerSocket getServerSocket(int port) {
         try {
             return new ServerSocket(port);
@@ -50,6 +55,14 @@ public class Connector {
             Bukkit.getLogger().log(Level.SEVERE, "Ошибка при создании сокета сервера (вероятно, порт занят)");
         }
         return null;
+    }
+
+    private @Nullable String getReaderData() {
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     private static Socket acceptConnection(ServerSocket serverSocket) {
