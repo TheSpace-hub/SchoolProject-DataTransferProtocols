@@ -44,11 +44,6 @@ public class ConnectionTask implements Runnable {
         if (!connector.isConnected()) return;
         dataIn = connector.getData();
         connector.sendData(dataOut);
-        for (Player p : Bukkit.getOnlinePlayers())
-            Bukkit.getLogger().log(Level.INFO,
-                    String.valueOf(p.getHealth()) + " " +
-                    String.valueOf(((int) p.getHealth())) + " " +
-                    String.valueOf(((int) p.getHealth()) / 2));
     }
 
 }
