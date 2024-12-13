@@ -28,6 +28,7 @@ public class Connector {
 
         Bukkit.getLogger().log(Level.INFO, "Ожидание подключения...");
         Socket socket = acceptConnection(serverSocket);
+        Bukkit.getLogger().log(Level.INFO, "Подключение установленно");
         if (socket == null) return;
 
         reader = getBufferedReader(socket);
