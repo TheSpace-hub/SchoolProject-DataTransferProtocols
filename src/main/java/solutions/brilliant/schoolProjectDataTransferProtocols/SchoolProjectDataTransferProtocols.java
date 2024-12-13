@@ -11,12 +11,13 @@ public final class SchoolProjectDataTransferProtocols extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        getCommand("sp").setExecutor(new SP());
         Connector connector = new Connector(25570, "127.0.0.1");
-        connector.openConnection();
 
         ConnectionTask task = new ConnectionTask(connector);
         Bukkit.getScheduler().runTaskTimer(this, task, 20L, 20L);
+
+        getCommand("sp").setExecutor(new SP(task));
+        getCommand("sp").setTabCompleter(new SP(task));
     }
 
     @Override
