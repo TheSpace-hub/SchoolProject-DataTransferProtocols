@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataIn;
+import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataOut;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -48,6 +49,12 @@ public class Connector {
         return new GsonBuilder().create().fromJson(getReaderData(), DataIn.class);
     }
 
+    public void sendData(DataOut data) {
+        sendDataByWriter(
+                new GsonBuilder().create().toJson(data)
+        );
+    }
+
     private @Nullable ServerSocket getServerSocket(int port) {
         try {
             return new ServerSocket(port);
@@ -62,6 +69,15 @@ public class Connector {
             return reader.readLine();
         } catch (IOException e) {
             return null;
+        }
+    }
+
+    private void sendDataByWriter(String data) {
+        try {
+            writer.write(data + "\n");
+            writer.flush();
+        } catch (IOException e) {
+            Bukkit.getLogger().log(Level.SEVERE, "Произошла ошибка при передаче данных");
         }
     }
 
