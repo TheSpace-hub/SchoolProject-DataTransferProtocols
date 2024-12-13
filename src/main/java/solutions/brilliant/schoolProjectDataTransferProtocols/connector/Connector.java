@@ -45,6 +45,10 @@ public class Connector {
         Bukkit.getLogger().log(Level.FINEST, "Соединение успешно установленно");
     }
 
+    public boolean isConnected() {
+        return !(reader == null || writer == null);
+    }
+
     public DataIn getData() {
         return new GsonBuilder().create().fromJson(getReaderData(), DataIn.class);
     }
