@@ -1,19 +1,15 @@
 package solutions.brilliant.schoolProjectDataTransferProtocols.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import solutions.brilliant.schoolProjectDataTransferProtocols.connector.ConnectionTask;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataOut;
-
-import java.util.logging.Level;
 
 public class MainListener implements Listener {
 
@@ -28,7 +24,7 @@ public class MainListener implements Listener {
         if (!(event.getEntity() instanceof Player player))
             return;
         DataOut out = new DataOut();
-        out.level = (int) Math.ceil(player.getHealth()) / 2;
+        out.level = getNormalPlayerHealth(player);
         task.setDataOut(out);
     }
 
@@ -37,7 +33,7 @@ public class MainListener implements Listener {
         if (!(event.getEntity() instanceof Player player))
             return;
         DataOut out = new DataOut();
-        out.level = (int) Math.ceil(player.getHealth()) / 2;
+        out.level = getNormalPlayerHealth(player);
         task.setDataOut(out);
     }
 
@@ -51,15 +47,23 @@ public class MainListener implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         DataOut out = new DataOut();
-        out.level = (int) Math.ceil(event.getPlayer().getHealth()) / 2;
+        out.level = getNormalPlayerHealthScale(event.getPlayer());
         task.setDataOut(out);
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         DataOut out = new DataOut();
-        out.level = (int) Math.ceil(event.getPlayer().getHealth()) / 2;
+        out.level = getNormalPlayerHealthScale(event.getPlayer());
         task.setDataOut(out);
+    }
+
+    private int getNormalPlayerHealth(Player player) {
+        return (int) Math.ceil(Math.ceil(player.getHealth()) / 2);
+    }
+
+    private int getNormalPlayerHealthScale(Player player) {
+        return (int) Math.ceil(Math.ceil(player.getHealthScale()) / 2);
     }
 
 }
