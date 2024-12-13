@@ -1,7 +1,11 @@
 package solutions.brilliant.schoolProjectDataTransferProtocols.connector;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataIn;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataOut;
+
+import java.util.logging.Level;
 
 public class ConnectionTask implements Runnable {
 
@@ -40,6 +44,11 @@ public class ConnectionTask implements Runnable {
         if (!connector.isConnected()) return;
         dataIn = connector.getData();
         connector.sendData(dataOut);
+        for (Player p : Bukkit.getOnlinePlayers())
+            Bukkit.getLogger().log(Level.INFO,
+                    String.valueOf(p.getHealth()) + " " +
+                    String.valueOf(((int) p.getHealth())) + " " +
+                    String.valueOf(((int) p.getHealth()) / 2));
     }
 
 }

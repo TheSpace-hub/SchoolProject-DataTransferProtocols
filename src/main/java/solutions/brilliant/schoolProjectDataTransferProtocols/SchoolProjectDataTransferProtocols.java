@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import solutions.brilliant.schoolProjectDataTransferProtocols.commands.SP;
 import solutions.brilliant.schoolProjectDataTransferProtocols.connector.ConnectionTask;
 import solutions.brilliant.schoolProjectDataTransferProtocols.connector.Connector;
+import solutions.brilliant.schoolProjectDataTransferProtocols.listeners.MainListener;
 
 public final class SchoolProjectDataTransferProtocols extends JavaPlugin {
 
@@ -14,10 +15,12 @@ public final class SchoolProjectDataTransferProtocols extends JavaPlugin {
         Connector connector = new Connector(25570, "127.0.0.1");
 
         ConnectionTask task = new ConnectionTask(connector);
-        Bukkit.getScheduler().runTaskTimer(this, task, 20L, 20L);
+        Bukkit.getScheduler().runTaskTimer(this, task, 1L, 1L);
 
         getCommand("sp").setExecutor(new SP(task));
         getCommand("sp").setTabCompleter(new SP(task));
+
+        getServer().getPluginManager().registerEvents(new MainListener(task), this);
     }
 
     @Override
