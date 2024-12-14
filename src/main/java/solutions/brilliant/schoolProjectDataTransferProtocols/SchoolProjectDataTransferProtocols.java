@@ -13,7 +13,7 @@ public final class SchoolProjectDataTransferProtocols extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        Connector connector = new Connector(25570, "127.0.0.1");
+        Connector connector = new Connector(25570, "127.0.0.1", this);
         MainActions actions = new MainActions(this);
         ConnectionTask task = new ConnectionTask(actions, connector);
 
