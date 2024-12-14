@@ -2,6 +2,7 @@ package solutions.brilliant.schoolProjectDataTransferProtocols.connector;
 
 import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataIn;
 import solutions.brilliant.schoolProjectDataTransferProtocols.data.DataOut;
@@ -11,20 +12,23 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 
-public class Connector {
+public class Connector implements Runnable {
 
     private final int port;
     private final String available;
+    private final Plugin plugin;
 
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public Connector(int port, String available) {
+    public Connector(int port, String available, Plugin plugin) {
         this.port = port;
         this.available = available;
+        this.plugin = plugin;
     }
 
-    public void openConnection() {
+    @Override
+    public void run() {
         ServerSocket serverSocket = getServerSocket(port);
         if (serverSocket == null) return;
 
@@ -43,6 +47,10 @@ public class Connector {
         }
 
         Bukkit.getLogger().log(Level.FINEST, "Соединение успешно установленно");
+    }
+
+    public void openConnection() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, this);
     }
 
     public boolean isConnected() {
